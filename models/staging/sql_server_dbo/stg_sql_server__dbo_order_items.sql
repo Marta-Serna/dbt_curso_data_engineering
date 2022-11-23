@@ -25,4 +25,4 @@ select
 
         }} as order_items_id
 
- from renamed
+ from renamed_casted

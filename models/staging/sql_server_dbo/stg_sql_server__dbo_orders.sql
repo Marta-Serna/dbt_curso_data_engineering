@@ -21,8 +21,8 @@ renamed_casted AS (
         ,_fivetran_deleted as date_deleted
         ,_fivetran_synced as date_load
     FROM src_orders
-    )
-    when delivered_at = not null
-    when _fivetran_deleted = not null
 
-SELECT * FROM renamed_casted
+    )
+   
+SELECT * 
+FROM renamed_casted
