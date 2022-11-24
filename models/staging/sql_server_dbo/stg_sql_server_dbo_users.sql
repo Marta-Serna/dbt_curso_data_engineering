@@ -1,22 +1,26 @@
-WITH src_users AS (
-    SELECT * 
-    FROM {{ source('sql_server__dbo', 'users') }}
+with source as (
+    select * 
+    from {{ source('sql_server__dbo', 'users') }}
     ),
 
-renamed_casted AS (
-    SELECT
+renamed_casted as (
+    select
          user_id
-        ,updated_at
-        ,last_name
-        ,created_at
-        ,phone_number
-        ,total_orders
-        ,first_name
         ,address_id
+        ,first_name
+        ,last_name
+        ,phone_number
         ,email
-        ,_fivetran_deleted as date_deleted
-        ,_fivetran_synced as date_load
-    FROM src_users
+        ,created_at as created_at_UTC
+        ,updated_at as updated_at_UTC
+        ,_fivetran_deleted as date_data_deleted
+        ,_fivetran_synced as date_data_load
+    from source
     )
 
-SELECT * FROM renamed_casted
+select * from renamed_casted
+
+--se borra total orders por no tener valores, no tiene sentido que esté en la tabla de users. puede ser calculado y
+--añadido a users posteriormente
+
+

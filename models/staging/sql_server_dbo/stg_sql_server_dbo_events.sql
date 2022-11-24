@@ -1,21 +1,21 @@
-WITH src_events AS (
-    SELECT * 
-    FROM {{ source('sql_server__dbo', 'events') }}
+with source as (
+    select * 
+    from {{ source('sql_server__dbo', 'events') }}
     ),
 
-renamed_casted AS (
-    SELECT
+renamed_casted as (
+    select
          event_id
-        ,page_url
         ,event_type
-        ,user_id
         ,product_id
-        ,session_id
-        ,created_at
         ,order_id
-        ,_fivetran_deleted as date_deleted
-        ,_fivetran_synced as date_load
-    FROM src_events
+        ,user_id
+        ,session_id
+        ,page_url
+        ,created_at as created_at_UTC
+        ,_fivetran_deleted as date_data_deleted
+        ,_fivetran_synced as date_data_load
+    from source
     )
 
-SELECT * FROM renamed_casted
+select * from renamed_casted

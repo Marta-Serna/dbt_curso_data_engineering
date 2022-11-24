@@ -1,28 +1,19 @@
-WITH src_order_items AS (
-    SELECT * 
-    FROM {{ source('sql_server__dbo','order_items') }}
+with source as (
+    select * 
+    from {{ source('sql_server__dbo','order_items') }}
     ),
 
-renamed_casted AS (
-    SELECT
+renamed_casted as (
+    select
+        {{ dbt_utils.surrogate_key([
+         'order_id', 'product_id'])
+        }} as order_items_id
          order_id
         ,product_id
-        ,quantity
+        ,quantity 
         ,_fivetran_deleted as date_deleted
         ,_fivetran_synced as date_load
-    FROM src_order_items
+    from source
     )
-
-select
-
- {{ dbt_utils.surrogate_key([
-
-                'order_id',
-
-                'product_id'
-
-            ])
-
-        }} as order_items_id
-
- from renamed_casted
+select * from renamed_casted
+ 

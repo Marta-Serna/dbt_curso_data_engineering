@@ -1,18 +1,18 @@
-WITH src_addresses AS (
-    SELECT * 
-    FROM {{ source('sql_server__dbo', 'addresses') }}
+with source as (
+    select * 
+    from {{ source('sql_server__dbo', 'addresses') }}
     ),
 
-renamed_casted AS (
-    SELECT
+renamed_casted as (
+    select
          address_id
         ,address
-        ,country
-        ,zipcode
         ,state
+        ,zipcode
+        ,country
         ,_fivetran_deleted as date_deleted
         ,_fivetran_synced as date_load
-    FROM src_addresses
+    from src_addresses
     )
 
-SELECT * FROM renamed_casted
+select * from renamed_casted

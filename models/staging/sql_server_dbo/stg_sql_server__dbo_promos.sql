@@ -1,16 +1,18 @@
-WITH src_promos AS (
-    SELECT * 
-    FROM {{ source('sql_server__dbo', 'promos') }}
+with source as (
+    select * 
+    from {{ source('sql_server__dbo', 'promos') }}
     ),
 
-renamed_casted AS (
-    SELECT
-         promo_id
-        ,discount
-        ,status
+renamed_casted as (
+    select 
+        {{ dbt_utils.surrogate_key([
+        'promo_id']) 
+        }} as promo_id 
+        ,promo_id as promo_type
+        ,discount as discount_$
+        ,status as promo_status
         ,_fivetran_deleted as date_deleted
         ,_fivetran_synced as date_load
-    FROM src_promos
-    )
-
-SELECT * FROM renamed_casted
+    from source
+    ) 
+select * from renamed_casted

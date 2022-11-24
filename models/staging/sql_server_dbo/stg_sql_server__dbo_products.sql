@@ -1,17 +1,17 @@
-WITH src_products AS (
-    SELECT * 
-    FROM {{ source('sql_server__dbo','products') }}
+with source as (
+    select * 
+    from {{ source('sql_server__dbo','products') }}
     ),
 
-renamed_casted AS (
-    SELECT
+renamed_casted as (
+    select
          product_id
         ,inventory
         ,name
-        ,price
+        ,price as price_$
         ,_fivetran_deleted as date_deleted
         ,_fivetran_synced as date_load
-    FROM src_products
+    from source
     )
 
-SELECT * FROM renamed_casted
+select * from renamed_casted
