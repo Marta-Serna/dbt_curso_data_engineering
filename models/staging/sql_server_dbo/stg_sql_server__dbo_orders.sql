@@ -6,7 +6,7 @@ with source as (
 renamed_casted as (
     select 
          order_id
-        ,user_id
+        ,user_id as costumer_id --quitar si es más lioso
         ,address_id
         ,order_cost as order_cost_$
         ,order_total as order_total_$
