@@ -1,0 +1,51 @@
+version: 2
+
+models:
+  - name: stg_sql_server_dbo_events
+    description: "Actividad del cliente en la página web"
+    columns:
+      - name: event_id
+        description: "Identificador único para la tabla de eventos."
+
+      - name: user_id
+        description: "Clave foránea a la tabla de usuarios."  
+        tests:
+          - relationships:
+             to: ref('sql_server_dbo_users')
+             field: user_id
+
+      - name: event_type
+        description: "Tipo de evento."
+
+      - name: product_id
+        description: "Clave foránea a la tabla de productos."
+        tests:
+         - relationships:
+             to: ref('sql_server__dbo_products')
+             field: product_id
+
+      - name: order_id
+        description: "Clave foránea a la tabla de pedidos."
+        tests:
+          - relationships:
+             to: ref('sql_server_dbo_orders')
+             field: order_id
+
+      - name: session_id
+        description: "Identificador que registra la entrada en la web."
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type :
+             column_type: varchar
+
+      - name: page_url
+        description: "Link de la página web desde donde sucede el evento."
+
+      - name: created_at_UTC
+        description: "Fecha (UTC) en la que se creó el registro."
+
+      - name: data_deleted
+        description: "Fecha en la que se eliminó el dato."
+
+      - name: date_load
+        description: "Fecha en la que se cargó el dato."

@@ -1,25 +1,31 @@
-with source as (
-    select * 
-    from {{ source('sql_server__dbo', 'orders') }}
+WITH src_orders AS (
+    SELECT * 
+    FROM {{ source('sql_server__dbo', 'orders') }}
     ),
 
-renamed_casted as (
-    select 
+renamed_casted AS (
+    SELECT
          order_id
-        ,user_id as costumer_id --quitar si es más lioso
+        ,user_id
+        ,case
+            when promo_id = ''then''
+            else {{dbt_utils.surrogate_key (['promo_id'])}}
+        end as promo_id
         ,address_id
-        ,order_cost as order_cost_$
-        ,order_total as order_total_$
+        ,cast(created_at as date) as created_at_utc
+        ,order_cost as order_cost_usd
+        ,order_total as order_total_usd
         ,shipping_service
-        ,shipping_cost as shipping_cost_$
-        ,promo_id
-        ,created_at as created_at_UTC
+        ,shipping_cost as shipping_cost_usd
         ,status as order_status
-        ,estimated_delivery_at as estimated_delivery_at_UTC
-        ,delivered_at as delivered_at_UTC
         ,tracking_id
-        ,_fivetran_deleted as date_data_deleted
-        ,_fivetran_synced as data_data_load
-    from source
+        ,cast(estimated_delivery_at as date) as estimated_delivery_at_utc
+        ,cast(delivered_at as date) as delivered_at_utc
+        ,_fivetran_deleted as data_deleted
+        ,_fivetran_synced as date_load
+
+    FROM src_orders
     )
-select * from renamed_casted
+ 
+SELECT * 
+FROM renamed_casted

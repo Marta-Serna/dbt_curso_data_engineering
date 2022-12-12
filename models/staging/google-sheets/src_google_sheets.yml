@@ -37,7 +37,7 @@ sources:
               - unique
           - name: product_id
             description: >
-              Id para cada producto de la plataforma.
+              Identificador para cada producto de la plataforma.
             tests:
               - not_null
               - relationships:

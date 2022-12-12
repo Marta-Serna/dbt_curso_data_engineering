@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: stg_demographic_data
+    description: "Tabla con datos demográficos sobre los usuarios."
+    columns:
+
+      - name: user_id
+        description: "Clave foránea a la tabla de usuarios."
+        tests:
+          - relationships:
+              to: ref('sql_server__dbo_users')
+              field: user_id
+
+      - name: birth_date
+        description: "Fecha de nacimiento de los usuarios."
+
+      - name: sex
+        description: "Sexo de los usuarios."
+
+      - name: marital_status
+        description: "Estado civil de los usuarios."

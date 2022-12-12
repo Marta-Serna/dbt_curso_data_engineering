@@ -5,13 +5,13 @@ with source as (
 
 renamed_casted as (
     select
-         product_id
-        ,inventory
-        ,name
-        ,price as price_$
-        ,_fivetran_deleted as date_deleted
-        ,_fivetran_synced as date_load
-    from source
+         product_id,
+         inventory,
+         name,
+         price as price_usd,
+         _fivetran_deleted as data_deleted,
+         _fivetran_synced as date_load
+        from source
     )
 
 select * from renamed_casted

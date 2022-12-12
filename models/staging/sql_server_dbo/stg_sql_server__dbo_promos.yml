@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: stg_sql_server__dbo_promos
+    description: "Tabla con información relevante sobre promociones aplicadas a los productos."
+    columns:
+      - name: promo_id
+        description: "Identificador único de cada promoción."
+        tests:
+        - not_null
+        - unique
+        - dbt_expectations.expect_column_values_to_be_of_type :
+           column_type: varchar
+
+      - name: promo_type
+        description: "Tipo de promoción aplicada."
+        tests:
+        - accepted_values:
+           values: ["leverage", "Mandatory", "Optional", "Digitized", "task-force", "instruction set", ""]
+        - dbt_expectations.expect_column_values_to_be_of_type :
+           column_type: varchar
+
+      - name: discount_usd
+        description: "Descuentos aplicados."
+
+      - name: promo_status
+        description: "Estado de la promoción."
+
+      - name: data_deleted
+        description: "Fecha en la que se eliminó un dato."
+
+      - name: date_load
+        description: "Fecha en la que se cargó el dato."

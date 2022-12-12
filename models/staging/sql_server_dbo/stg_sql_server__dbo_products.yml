@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: stg_sql_server__dbo_products
+    description: "Tabla con información relevante sobre los productos."
+    columns:
+      - name: product_id
+        description: "Identificador único para cada producto."
+
+      - name: inventory
+        description: "Inventario disponible de cada producto"
+
+      - name: name
+        description: "Nombre de cada producto."
+
+      - name: price_usd
+        description: "Precio de cada producto."
+
+      - name: data_deleted
+        description: "Fecha en la que se eliminó el dato."
+
+      - name: date_load
+        description: "Fecha en la que se cargó el dato."

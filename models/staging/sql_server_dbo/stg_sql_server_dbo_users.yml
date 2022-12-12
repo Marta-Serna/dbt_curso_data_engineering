@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: stg_sql_server_dbo_users
+    description: "Tabla con información relevante sobre los usuarios."
+    columns:
+
+      - name: user_id
+        description: "Identificador único para cada usuario."
+      
+      - name: address_id
+        description: "Clave foránea a la tabla de direcciones."
+        tests:
+          - relationships:
+              to: ref('sql_server__dbo_addresses')
+              field: address_id
+
+      - name: first_name
+        description: "Nombre del usuario."
+
+      - name: last_name
+        description: "Apellido del usuario."
+
+      - name: phone_number
+        description: "Número de teléfono del usuario."
+
+      - name: email
+        description: "E-mail del usuario."
+
+      - name: total_orders
+        description: "Pedidos totales realizados por el usuario."
+
+      - name: created_at_utc
+        description: "Fecha (UTC) de creación del usuario."
+
+      - name: updated_at_utc
+        description: "Fecha (UTC) en la que se actualizó la información del usuario."
+
+      - name: data_deleted
+        description: "Fecha en la que se eliminó un dato."
+
+      - name: date_load
+        description: "Fecha en la que se cargó el dato."

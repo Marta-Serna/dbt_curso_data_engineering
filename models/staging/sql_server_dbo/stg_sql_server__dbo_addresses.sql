@@ -10,9 +10,9 @@ renamed_casted as (
         ,state
         ,zipcode
         ,country
-        ,_fivetran_deleted as date_deleted
+        ,_fivetran_deleted as data_deleted
         ,_fivetran_synced as date_load
-    from src_addresses
+    from source
     )
 
 select * from renamed_casted

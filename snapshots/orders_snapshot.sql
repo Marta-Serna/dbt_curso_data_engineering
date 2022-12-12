@@ -1,15 +1,15 @@
-{% snapshot budget_snapshot %}
+{% snapshot orders_snapshot %}
 
 {{
     config(
       target_schema='snapshots',
-      unique_key='_row',
+      unique_key='order_id',
       strategy='check',
       check_cols=['quantity'],
       invalidate_hard_deletes=True,)
 }}
 
-select * from {{ source('google_sheets', 'budget') }}
+select * from {{ source('sql_server__dbo', 'orders') }}
 
 {% endsnapshot %}
 

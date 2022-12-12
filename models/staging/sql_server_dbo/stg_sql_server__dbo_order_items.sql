@@ -8,10 +8,10 @@ renamed_casted as (
         {{ dbt_utils.surrogate_key([
          'order_id', 'product_id'])
         }} as order_items_id
-         order_id
+        ,order_id
         ,product_id
         ,quantity 
-        ,_fivetran_deleted as date_deleted
+        ,_fivetran_deleted as data_deleted
         ,_fivetran_synced as date_load
     from source
     )
