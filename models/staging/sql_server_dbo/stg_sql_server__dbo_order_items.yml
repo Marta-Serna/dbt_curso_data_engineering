@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: stg_sql_server__dbo_order_items
+    description: "Tabla con información sobre qué producto se asocia a cada pedido."
+    columns:
+      - name: order_items_id
+        description: "Identificador único para cada artículo pedido."
+        tests: 
+         - not_null
+         - unique
+         - dbt_expectations.expect_column_values_to_be_of_type :
+            column_type: varchar
+
+      - name: order_id
+        description: "Clave foránea a la tabla de pedidos."
+        tests:
+        - relationships:
+           to: ref('sql_server__dbo_orders')
+           field: order_id
+
+      - name: product_id
+        description: "Clave foránea a la tabla de productos."
+        tests:
+        - relationships:
+           to: ref('sql_server__dbo_products')
+           field: product_id
+
+      - name: quantity
+        description: "Cantidad de pedidos que un usuario ha realizado."
+
+      - name: data_deleted
+        description: "Fecha en la que se eliminó el dato."
+
+      - name: date_load
+        description: "Fecha en la que se cargó el dato."

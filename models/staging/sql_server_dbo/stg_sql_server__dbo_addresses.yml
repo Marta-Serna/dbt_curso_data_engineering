@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: stg_sql_server__dbo_addresses
+    description: "Tabla con información relevante sobre la dirección de los clientes."
+    columns:
+      - name: address_id
+        description: "Identificador único para cada dirección."
+            
+      - name: address
+        description: "Dirección del cliente."
+
+      - name: country
+        description: "País al que pertenece cada cliente."
+
+      - name: zipcode
+        description: "Código postal del cliente."
+
+      - name: state
+        description: "Estado al que pertenece el cliente."
+
+      - name: data_deleted
+        description: "Fecha en la que se borró el dato."
+
+      - name: date_load
+        description: "Fecha en la que se cargó el dato."

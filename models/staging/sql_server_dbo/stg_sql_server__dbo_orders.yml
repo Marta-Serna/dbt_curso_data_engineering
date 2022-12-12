@@ -1,0 +1,62 @@
+version: 2
+
+models:
+  - name: stg_sql_server__dbo_orders
+    description: "Tabla con información relevante sobre los pedidos realizados por cada usuario."
+    columns:
+      - name: order_id
+        description: "Identificador único de cada pedido."
+
+      - name: user_id
+        description: "Clave foránea a la tabla de usuarios."
+        tests:
+        - relationships:
+            to: ref('sql_server_dbo_users')
+            field: user_id
+
+      - name: address_id
+        description: "Clave foránea a la tabla de dirección del cliente."
+        tests:
+        - relationships:
+            to: ref('sql_server__dbo_addresses')
+            field: address_id
+
+      - name: promo_id
+        description: "Clave foránea a la tabla de promos."
+
+      - name: created_at_utc
+        description: "Fecha (UTC) en la que fue creado el pedido."
+
+      - name: order_cost_usd
+        description: "Coste del pedido sin los gastos de envío."
+ 
+      - name: order_total_usd
+        description: "Coste total del producto más los gastos de envío y en caso de que la haya, promoción aplicada."
+
+      - name: shipping_service
+        description: "Servicio contratado de envío del pedido."
+
+      - name: shipping_cost_usd
+        description: "Coste de envío del pedido."
+    
+      - name: order_status
+        description: "Estado del pedido."
+
+      - name: tracking_id
+        description: "Identificador de rastreo del pedido."
+
+      - name: estimated_delivery_at_utc
+        description: "Fecha (UTC) estimada en la que el cliente recibirá el pedido."  
+
+      - name: delivered_at_utc
+        description: "Fecha (UTC) en la que el cliente recibió el pedido."
+
+      - name: data_deleted
+        description: "Fecha en la que se eliminó el dato."
+
+      - name: date_load
+        description: "Fecha en la que se cargó el dato."
+
+
+
+
