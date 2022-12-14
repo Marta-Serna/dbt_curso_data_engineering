@@ -13,7 +13,7 @@ models:
            column_type: varchar
 
       - name: promo_type
-        description: "Tipo de promoción aplicada."
+        description: "{{doc('promo_type')}}"
         tests:
         - accepted_values:
            values: ["leverage", "Mandatory", "Optional", "Digitized", "task-force", "instruction set", ""]

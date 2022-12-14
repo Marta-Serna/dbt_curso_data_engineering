@@ -1,46 +1,70 @@
-with users as (
-
-    select * from {{ ref('dim_users_info') }}
-
+with orders as (
+    select * from {{ ref('fct_orders') }}
 ),
 
-orders as (
-
-    select * from {{ ref('stg_sql_server__dbo_orders') }}
-
+order_items as (
+    select * from {{ ref('dim_order_items') }}
 ),
 
-users_orders as (
+products as (
+     select * from {{ ref('dim_products') }}
+),
 
-    select
-        user_id,
-        min(orders.created_at_utc) as first_order,
-        max(orders.created_at_utc) as most_recent_order,
-        count(order_id) as total_orders
-    from orders
-    group by user_id
+promos as (
+     select * from {{ ref('dim_promos') }}
+),
+
+fecha as (
+     select * from {{ ref('dim_date') }}
 ),
 
 final as (
+    select 
+     orders.order_id,
+     min(orders.created_at_utc) as first_order,
+     max(orders.created_at_utc) as most_recent_order,
+     count(orders.order_id) as total_orders,
+     orders.created_at_utc,
+     orders.order_cost_usd,
+     orders.order_total_usd,
+     order_items.product_id,
+     products.name,
+     products.inventory,
+     products.price_usd,
+     products.price_range,
+     order_items.quantity,
+     promos.promo_id,
+     promos.promo_type,
+     promos.discount_usd,
+     fecha.day_of_week_name,
+     fecha.quarter_of_year
 
-    select
-        users.user_id,
-        users.created_at_utc as customer_created_at,
-        users.updated_at_utc as customer_updated_at,
-        users.first_name,
-        users.last_name,
-        users.phone_number,
-        users.email,
-        users.address,
-        users.state,
-        users.country,
-        users.zipcode,
-        users_orders.first_order,
-        users_orders.most_recent_order,
-        users_orders.total_orders
-    from users
-    right join users_orders on
-        users.user_id = users_orders.user_id
-
+    from orders
+    left join order_items 
+         on orders.order_id = order_items.order_id
+    left join products 
+         on order_items.product_id = products.product_id
+    left join promos
+         on orders.promo_id = promos.promo_id
+    left join fecha
+         on orders.created_at_utc = fecha.date_day
+         
+    group by
+     orders.order_id,
+     orders.created_at_utc,
+     orders.order_cost_usd,
+     orders.order_total_usd,
+     order_items.product_id,
+     products.name,
+     products.inventory,
+     products.price_usd,
+     products.price_range,
+     order_items.quantity,
+     promos.promo_id,
+     promos.promo_type,
+     promos.discount_usd,
+     fecha.day_of_week_name,
+     fecha.quarter_of_year
 )
+
 select * from final

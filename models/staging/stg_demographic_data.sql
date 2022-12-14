@@ -1,12 +1,12 @@
 with demo as (
-    select * from {{ ref('demographic_data') }}
+    select * from {{ ref('demographics') }}
 ),
 
 final as (
 
 select
+    birth_year,
     user_id,
-    uniform(1950,2003,random(1)) as birth_year,
     case
        when sex=0 then 'male'
        else 'female'

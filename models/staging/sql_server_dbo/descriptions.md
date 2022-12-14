@@ -13,29 +13,9 @@ La actividad de los usuarios en la página web puede se encuentra entre alguno d
 {% enddocs %}
 
 
-
-{% docs promo_id %}
-
-Las promociones pueden ser de los siguientes tipos:
-
-| estado         | definición                                                           |
-|----------------|----------------------------------------------------------------------|
-| leverage       | El pedido se ha añadido al carrito                                   |
-| Mandatory      | Promoción obligatoria                                                |
-| Optional       | Promoción opcional                                                   |
-| Digitized      | El pedido fue enviado                                                |
-| task-force     |                                                                      |
-| instruction set|                                                                      |
-
-{% enddocs %}
-
-
-
-
-
 {% docs status %}
 
-Las promociones pueden ser de los siguientes tipos:
+El estado del pedido se encuentra entre las siguientes fases:
 
 | estado         | definición                                                           |
 |----------------|----------------------------------------------------------------------|
@@ -44,5 +24,22 @@ Las promociones pueden ser de los siguientes tipos:
 | shipped        | El pedido ha sido enviadoe                                           |
 
 {% enddocs %}
+
+
+{% docs promo_type %}
+
+Las promociones pueden ser de los siguientes tipos:
+
+| estado         | definición                                                           |
+|----------------|----------------------------------------------------------------------|
+| leverage       |                                                                      |
+| Mandatory      | Promoción obligatoria                                                |
+| Optional       | Promoción opcional                                                   |
+| Digitized      |                                                                      |
+| task-force     |                                                                      |
+| instruction set|                                                                      |
+
+{% enddocs %}
+
 
 

@@ -1,0 +1,185 @@
+version: 2
+
+models:
+  - name: dim_date
+    description: "Tabla con diferentes campos para analizar por fecha."
+
+  - name: dim_month
+    description: "Tabla con diferentes campos para analizar con granularidad de mes."
+
+  - name: dim_order_items
+    description: "Tabla con información sobre qué producto se asocia a cada pedido."
+    columns:
+    - name: order_items_id
+      description: "Identificador único para cada artículo pedido."
+    - name: order_id
+      description: "Clave foránea a la tabla de pedidos."
+    - name: product_id
+      description: "Clave foránea a la tabla de productos."
+    - name: quantity
+      description: "Cantidad de pedidos que un usuario ha realizado."
+    - name: data_deleted
+      description: "Fecha en la que se eliminó el dato."
+    - name: date_load
+      description: "Fecha en la que se cargó el dato."
+
+
+  - name: dim_products
+    description: "Tabla con diferentes campos para analizar con granularidad de mes."
+    columns:
+    - name: product_id
+      description: "Identificador único para cada producto."
+    - name: inventory
+      description: "Inventario disponible de cada producto"
+    - name: name
+      description: "Nombre de cada producto."
+    - name: price_usd
+      description: "Precio de cada producto."
+    - name: price_range
+      description: "Rango de precio de cada producto."
+      tests:
+      - accepted_values:
+         values: ["cheap","affordable","expensive"]
+    - name: data_deleted
+      description: "Fecha en la que se eliminó el dato."
+    - name: date_load
+      description: "Fecha en la que se cargó el dato."
+
+
+  - name: dim_promos
+    description: "Tabla con diferentes campos para analizar con granularidad de mes."
+    columns:
+    - name: promo_id
+      description: "Identificador único de cada promoción."
+    - name: promo_type
+      description: "Tipo de promoción aplicada."
+    - name: discount_usd
+      description: "Descuentos aplicados."
+    - name: promo_status
+      description: "Estado de la promoción."
+    - name: data_deleted
+      description: "Fecha en la que se eliminó un dato."
+    - name: date_load
+      description: "Fecha en la que se cargó el dato."
+
+
+  - name: dim_users
+    description: "Tabla con información relevante sobre los usuarios."
+    columns:
+      - name: user_id
+        description: "Identificador único para cada usuario."  
+      - name: address_id
+        description: "Clave foránea a la tabla de direcciones."
+      - name: first_name
+        description: "Nombre del usuario."
+      - name: last_name
+        description: "Apellido del usuario."
+      - name: phone_number
+        description: "Número de teléfono del usuario."
+      - name: email
+        description: "E-mail del usuario."
+      - name: gender
+        description: "género de los usuarios."
+      - name: birth_date
+        description: "Fecha de nacimiento de los usuarios."
+      - name: marital_status
+        description: "Estado civil de los usuarios."
+      - name: children
+        description: "Si los usuarios tienen o no hijos."
+      - name: address_id
+        description: "Identificador único para cada dirección."
+      - name: address
+        description: "Dirección del usuario."
+      - name: country
+        description: "País al que pertenece cada usuario."
+      - name: zipcode
+        description: "Código postal del usuario."
+      - name: state
+        description: "Estado al que pertenece el usuario."
+      - name: created_at_utc
+        description: "Fecha (UTC) de creación del usuario."
+      - name: updated_at_utc
+        description: "Fecha (UTC) en la que se actualizó la información del usuario."
+      - name: data_deleted
+        description: "Fecha en la que se borró el dato."
+      - name: date_load
+        description: "Fecha en la que se cargó el dato."
+
+  - name: fct_budget
+    description: "Tabla con diferentes campos para analizar con granularidad de mes."
+    columns:
+    - name: product_id
+      description: "Identificador para cada producto de la plataforma."
+    - name: quantity
+      description: "Cantidad de productos que esperan ser vendidos."
+    - name: year_month_id
+      description: "Identificador para cada mes de cada año."
+    - name: quarter_of_year
+      description: "Cantidad de productos que se esperan vender por trimestre."
+    - name: month_name
+      description: "Cantidad de productos que se esperan vender en cada mes."
+    - name: date_load
+      description: "Fecha en la que se cargó el dato."
+
+  - name: fct_events
+    description: "Tabla con diferentes campos para analizar con granularidad de mes."
+    columns:
+    - name: event_id
+      description: "Identificador único para la tabla de eventos."
+    - name: user_id
+      description: "Clave foránea a la tabla de usuarios."
+    - name: order_id
+      description: "Clave foránea a la tabla de pedidos."
+    - name: checkout_amount
+      description: "Cantidad de usuarios que finalizan la compra y validan el pago de sus productos."
+    - name: package_shipped_amount
+      description: "Cantidad de pedidos enviados."
+    - name: add_to_cart_amount
+      description: "Cantidad de pedidos añadidos al carrito."
+    - name: page_view_amount
+      description: "Cantidad de veces que se ha visitado la página."
+    - name: product_id
+      description: "Clave foránea a la tabla de productos."
+    - name: session_id
+      description: "Identificador que registra la entrada en la web."
+    - name: page_url
+      description: "Link de la página web desde donde sucede el evento."
+    - name: created_at_UTC
+      description: "Fecha (utc) en la que se creó el registro."
+    - name: data_deleted
+      description: "Fecha en la que se eliminó el dato."
+    - name: date_load
+      description: "Fecha en la que se cargó el dato."
+  
+
+  - name: fct_orders
+    description: "Tabla con diferentes campos para analizar con granularidad de mes."
+    columns:
+    - name: order_id
+      description: "Identificador único de cada pedido."
+    - name: user_id
+      description: "Clave foránea a la tabla de usuarios."
+    - name: address_id
+      description: "Clave foránea a la tabla de dirección del cliente."
+    - name: promo_id
+      description: "Clave foránea a la tabla de promos."
+    - name: created_at_utc
+      description: "Fecha (UTC) en la que fue creado el pedido."
+    - name: order_cost_usd
+      description: "Coste del pedido sin los gastos de envío."
+    - name: order_total_usd
+      description: "Coste total del producto más los gastos de envío y en caso de que la haya, promoción aplicada."
+    - name: shipping_cost_usd
+      description: "Coste de envío del pedido."  
+    - name: order_status
+      description: "Estado del pedido."
+    - name: tracking_id
+      description: "Identificador de rastreo del pedido."
+    - name: estimated_delivery_at_utc
+      description: "Fecha (UTC) estimada en la que el cliente recibirá el pedido."  
+    - name: delivered_at_utc
+      description: "Fecha (UTC) en la que el cliente recibió el pedido."
+    - name: data_deleted
+      description: "Fecha en la que se eliminó el dato."
+    - name: date_load
+      description: "Fecha en la que se cargó el dato."
