@@ -27,17 +27,17 @@ sources:
       - name: budget
         loaded_at_field: _fivetran_synced
         description: >
-          Información sobre la tabla budget.
+          Información sobre presupuesto.
         columns:
           - name: _row
             description: >
-              Nombre de cada fila en el google sheets.
+              Identificador único de la tabla.
             tests:
               - not_null
               - unique
           - name: product_id
             description: >
-              Identificador para cada producto de la plataforma.
+              Clave foránea a la tabla de productos.
             tests:
               - not_null
               - relationships:
@@ -45,7 +45,7 @@ sources:
                   field: product_id
           - name: quantity
             description: >
-              Número de unidades por cada producto y cada mes.
+              Cantidad de productos que esperan ser vendidos.
             tests:
               - not_null
               - positive_values

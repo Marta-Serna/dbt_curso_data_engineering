@@ -8,7 +8,7 @@ renamed_casted AS (
          _row as budget_id
         ,product_id
         ,quantity
-        ,month
+        ,to_varchar(year(month)*100 + month(month)) as year_month_id
         ,_fivetran_synced as date_load
     FROM src_budget_products
     )

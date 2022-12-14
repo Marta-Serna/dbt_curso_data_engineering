@@ -1,14 +1,14 @@
-{% snapshot budget_snapshot %}
+{% snapshot products_snapshot %}
 
 {{
     config(
       target_schema='snapshots',
-      unique_key='budget_id',
+      unique_key='product_id',
       strategy='timestamp',
       updated_at= 'date_load',
       invalidate_hard_deletes=True,)
 }}
 
-select * from {{ ref('fct_budget') }}
+select * from {{ ref('dim_products') }}
 
 {% endsnapshot %}

@@ -15,7 +15,7 @@ models:
              field: user_id
 
       - name: event_type
-        description: "Tipo de evento."
+        description: "{{doc('event_type')}}"
 
       - name: product_id
         description: "Clave foránea a la tabla de productos."

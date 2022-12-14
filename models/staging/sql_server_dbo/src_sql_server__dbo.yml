@@ -445,7 +445,7 @@ sources:
         description: "Tabla con información relevante sobre las promociones aplicadas a productos."
         columns:
           - name: promo_id
-            description: "{{doc('promo_id')}}"
+            description: "Identificador único de cada promoción"
             tests:
             - not_null
             - unique

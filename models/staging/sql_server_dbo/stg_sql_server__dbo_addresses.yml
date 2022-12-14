@@ -8,16 +8,16 @@ models:
         description: "Identificador único para cada dirección."
             
       - name: address
-        description: "Dirección del cliente."
+        description: "Dirección del usuario."
 
       - name: country
-        description: "País al que pertenece cada cliente."
+        description: "País al que pertenece cada usuario."
 
       - name: zipcode
-        description: "Código postal del cliente."
+        description: "Código postal del usuario."
 
       - name: state
-        description: "Estado al que pertenece el cliente."
+        description: "Estado al que pertenece el usuario."
 
       - name: data_deleted
         description: "Fecha en la que se borró el dato."

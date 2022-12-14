@@ -1,5 +1,6 @@
 {{ config(
-    materialized='incremental'
+    materialized='incremental',
+    unique_key='product_id'
     ) 
     }}
 
@@ -19,8 +20,9 @@ final as (
             when price_usd >= 25 and price_usd <= 50 then 'affordable'
             else 'expensive'
          end as price_range,
-         data_deleted,
-         date_load
+         date_load,
+         data_deleted
+
     from products
     )
 
